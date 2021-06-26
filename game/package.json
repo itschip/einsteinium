@@ -1,0 +1,21 @@
+{
+  "name": "einsteinium-game",
+  "version": "1.0.0",
+  "description": "The game scripts for einsteinium",
+  "main": "index.js",
+  "author": "Christopher Gjelten (chip)",
+  "license": "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International Public License",
+  "devDependencies": {
+    "@citizenfx/client": "^2.0.4126-1",
+    "@citizenfx/server": "^2.0.4126-1",
+    "@types/node": "^15.12.4",
+    "@types/reflect-metadata": "^0.1.0",
+    "@typescript-eslint/eslint-plugin": "^4.28.0",
+    "@typescript-eslint/parser": "^4.28.0",
+    "eslint": "^7.29.0",
+    "typescript": "^4.3.4"
+  },
+  "dependencies": {
+    "reflect-metadata": "^0.1.13"
+  }
+}
