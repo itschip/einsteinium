@@ -1,5 +1,6 @@
 import { PlayerMapProps } from './player.interface';
 import { Player } from './player.class';
+import { getGameLicense } from '../utils/getGameLicense'
 
 class _PlayerService {
   private playerSourceMap: Map<number, Player>
@@ -35,7 +36,8 @@ class _PlayerService {
 
   async handleNewPlayer(source: number) {
     // FIXME: Create a identifier function
-    const identifier = '3r23r';
+    
+    const identifier = getGameLicense(source);
 
     const username = GetPlayerName(source.toString());
 
