@@ -14,3 +14,8 @@ export enum CoreEvents {
    */
   PLAYER_CONNECTING = 'playerConnecting'
 }
+
+export enum SpawnEvents {
+  SPAWN_PLAYER = 'battlefield:spawnPlayer',
+  GET_LOADOUT = 'battlefield:getPlayerLoadout'
+}

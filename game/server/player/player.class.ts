@@ -5,7 +5,7 @@ export class Player {
   private readonly _source: number;
   private readonly _identifier: string;
   private readonly _username: string;
-  private readonly playerDB: _PlayerDB
+  private readonly playerDB: _PlayerDB;
 
   constructor({ source, identifier, username }: PlayerProps) {
     this._source = source;
