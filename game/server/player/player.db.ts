@@ -6,7 +6,7 @@ export class _PlayerDB {
     await db.query(query, [identifier, username])
   }
 
-  async deletePlayer(identifier: string) {
+  async deletePlayer(identifier: string): Promise<void> {
     const query = `DELETE FROM players WHERE identifier = ?`
     await db.query(query, [identifier]);
   }
