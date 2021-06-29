@@ -25,6 +25,10 @@ class _PlayerService {
     return player;
   }
 
+  getAllPlayers() {
+    return this.playerSourceMap.values()
+  }
+
   /**
    * Gets the player from identifier map
    * @param identifier
@@ -66,11 +70,17 @@ class _PlayerService {
 
     const username = GetPlayerName(source.toString());
 
-    await this.playerDB.createPlayer(identifier, username);
-    const player = new Player({ source, username, identifier })
+    // FIXME: Check if the user exists first :P
+    /*await this.playerDB.createPlayer(identifier, username);*/
+    const player = new Player({ source, username, identifier, kills: 0, deaths: 0 })
 
 
     this.handleAddPlayerToMap(source, player);
+
+    const newPlayer = this.getPlayer(source)
+
+    console.log('Username', newPlayer.getUsername())
+    console.log('Identifier', newPlayer.getIdentifier())
   }
 
   async handleDeletePlayer(source: number) {

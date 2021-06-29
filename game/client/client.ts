@@ -1,3 +1,1 @@
-const wow = 'wow';
-
-console.log(wow);
+import './zone'

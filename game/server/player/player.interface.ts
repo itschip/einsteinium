@@ -8,4 +8,6 @@ export interface PlayerProps {
   source: number;
   identifier: string;
   username: string;
+  kills: number;
+  deaths: number;
 }
