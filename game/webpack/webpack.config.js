@@ -5,11 +5,11 @@ const RemovePlugin = require('remove-files-webpack-plugin');
 const buildPath = path.resolve(__dirname, '../dist');
 
 const client = {
-  entry: './client.ts',
+  entry: './client/client.ts',
   module: {
     rules: [
       {
-        test: /\.tsx$/,
+        test: /\.ts$/,
         use: ['ts-loader'],
         exclude: /node_modules/
       }
@@ -40,11 +40,11 @@ const client = {
 }
 
 const server = {
-  entry: './server.ts',
+  entry: './server/server.ts',
   module: {
     rules: [
       {
-        test: /\.tsx$/,
+        test: /\.ts$/,
         use: ['ts-loader'],
         exclude: /node_modules/
       }
@@ -69,7 +69,7 @@ const server = {
     extensions: ['.js', '.ts', '.tsx']
   },
   output: {
-    filename: 'client.js',
+    filename: 'server.js',
     path: path.resolve(buildPath, 'server')
   },
   target: 'node'

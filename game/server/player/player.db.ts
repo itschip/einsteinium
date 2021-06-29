@@ -1,4 +1,4 @@
-import { db } from '@server/db';
+import { db } from '../database/db';
 
 export class _PlayerDB {
   async createPlayer(identifier: string, username: string): Promise<void> {

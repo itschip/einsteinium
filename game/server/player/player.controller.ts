@@ -1,5 +1,5 @@
 import { CoreEvents } from '../../shared/events';
-import PlayerService from '@server/player';
+import PlayerService from './player.service';
 
 on(CoreEvents.PLAYER_JOINING, () => {
   const _source = global.source;
@@ -14,3 +14,6 @@ on(CoreEvents.PLAYER_DROPPED, (reason: string) => {
 
   PlayerService.handleRemovePlayer(_source);
 });
+
+global.exports('getPlayer', (source: number) => PlayerService.getPlayer(source));
+global.exports('getIdentifier', (source: number) => PlayerService.getIdentifier(source));
