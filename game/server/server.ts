@@ -1,24 +1,17 @@
-import './player/player.controller'
-import './team/team.controller'
-import PlayerService from "./player/player.service";
+import './player/player.controller';
+import './team/team.controller';
+import './weapon/weapon.controller';
 
-const exp = (global as any).exports;
+import { ConfigProps } from '../shared/types/resource';
 
-RegisterCommand('setteam', (src: number, args: string[], raw: string) => {
-	const deaths = exp['einsteinium'].getDeaths(src)
-	console.log('current deaths', deaths);
+export const config: ConfigProps = JSON.parse(
+  LoadResourceFile(GetCurrentResourceName(), 'game/shared/config.json'),
+);
 
-	exp['einsteinium'].setDeaths(src, 2);
-
-	const newDeaths = exp['einsteinium'].getDeaths(src)
-	console.log('current deaths', newDeaths);
-}, false)
-
-RegisterCommand('getallplayers', (src: number, args: string[], raw: string) => {
-	console.log('all players', PlayerService.getAllPlayers())
-
-	for (const player of PlayerService.getAllPlayers()) {
-		console.log(player.getUsername())
-	}
-}, false)
-
+RegisterCommand(
+  'getcoords',
+  (src: number) => {
+    console.log('coords', GetEntityCoords(GetPlayerPed(src.toString())));
+  },
+  false,
+);

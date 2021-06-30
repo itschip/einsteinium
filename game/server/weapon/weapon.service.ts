@@ -11,7 +11,7 @@ class _WeaponService {
   giveWeapon(src: number, weapon: string) {
     const weaponHash = GetHashKey(weapon);
 
-    GiveWeaponToPed(GetPlayerPed(source.toString()), weaponHash, 250, false, true);
+    GiveWeaponToPed(GetPlayerPed(src.toString()), weaponHash, 999, true, false);
   }
 }
 
