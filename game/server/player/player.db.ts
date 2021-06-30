@@ -10,16 +10,6 @@ export class _PlayerDB {
     const query = `DELETE FROM players WHERE identifier = ?`
     await db.query(query, [identifier]);
   }
-
-  async getPlayerLevel(identifier: string): Promise<number> {
-    /*const query = `SELECT * FROM players`
-    const [results] = await db.query(query, [identifier])*/
-    return 0;
-  }
-
-  async getExtraInformation(identifier: string): Promise<void> {
-    // get some 'xd info' about players
-  }
 }
 
 const PlayerDB = new _PlayerDB();

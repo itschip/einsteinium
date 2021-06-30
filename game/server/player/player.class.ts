@@ -7,14 +7,16 @@ export class Player {
   private readonly _username: string;
   private _kills: number;
   private _deaths: number;
+  _team: 'red' | 'blue' | null;
   private readonly playerDB: _PlayerDB;
 
-  constructor({ source, identifier, username, kills, deaths }: PlayerProps) {
+  constructor({ source, identifier, username, kills, deaths, team }: PlayerProps) {
     this._source = source;
     this._identifier = identifier;
     this._username = username;
     this._kills = kills;
     this._deaths = deaths;
+    this._team = team;
 
     this.playerDB = PlayerDB;
   }
@@ -43,7 +45,11 @@ export class Player {
     this._deaths = this._deaths + deaths;
   }
 
-  /*async getLevel(): Promise<number> {
-    return await this.playerDB.getPlayerLevel(this._identifier);
-  }*/
+  getTeam(): 'red' | 'blue' | null {
+    return this._team;
+  }
+
+  setTeam(team: 'red' | 'blue') {
+    this._team = team;
+  }
 }

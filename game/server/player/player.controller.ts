@@ -25,6 +25,8 @@ on(CoreEvents.PLAYER_DROPPED, (reason: string) => {
   PlayerService.handleRemovePlayer(_source);
 });
 
+// exports
+
 global.exports('getPlayer', PlayerService.getPlayer);
 global.exports('getIdentifier', PlayerService.getIdentifier);
 
