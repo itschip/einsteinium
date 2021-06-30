@@ -1,8 +1,7 @@
 import { Player } from './player.class';
 import { getGameLicense } from '../utils/getGameLicense'
 import PlayerDB, { _PlayerDB } from './player.db';
-import TeamService from "../team/team.service";
-import { config } from "../server";
+import { selectTeam } from "./player.utils";
 
 class _PlayerService {
   private playerSourceMap: Map<number, Player>
@@ -74,23 +73,10 @@ class _PlayerService {
     /*await this.playerDB.createPlayer(identifier, username);*/
     const player = new Player({ source, username, identifier, kills: 0, deaths: 0, team: null })
 
-
     this.handleAddPlayerToMap(source, player);
 
-    let chosenTeam: 'red' | 'blue'
-
-    if (TeamService.blueTeam > TeamService.redTeam) {
-      chosenTeam = 'red'
-      TeamService.addPlayerToTeam('red')
-    } else if (TeamService.redTeam > TeamService.blueTeam) {
-      chosenTeam = 'blue'
-      TeamService.addPlayerToTeam('blue')
-    } else {
-      chosenTeam = 'blue'
-      TeamService.addPlayerToTeam('blue')
-    }
-
     const newPlayer = this.getPlayer(source)
+    const chosenTeam = selectTeam();
 
     newPlayer.setTeam(chosenTeam)
   }

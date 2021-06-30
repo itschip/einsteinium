@@ -1,13 +1,13 @@
+import { ConfigProps } from '../shared/types/resource';
+export const config: ConfigProps = JSON.parse(
+  LoadResourceFile(GetCurrentResourceName(), 'game/shared/config.json'),
+);
+
 import './player/player.controller';
 import './team/team.controller';
 import './weapon/weapon.controller';
 import './airdrop/airdrop.controller';
-
-import { ConfigProps } from '../shared/types/resource';
-
-export const config: ConfigProps = JSON.parse(
-  LoadResourceFile(GetCurrentResourceName(), 'game/shared/config.json'),
-);
+import './round/round.controller';
 
 RegisterCommand(
   'getcoords',
