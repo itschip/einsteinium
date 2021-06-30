@@ -10,8 +10,8 @@ CreateThread(function()
 	while true do
 		Wait(0)
 		
-		
 		RestorePlayerStamina(PlayerId(), 1.0);
+		SetZoneEnabled(GetZoneFromNameId("PrLog"), false) -- Removes Snowflakes from Cayo Perico
 		
 		if IsPedOnFoot(PlayerPedId()) then
 			SetFollowPedCamViewMode(4)

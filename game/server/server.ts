@@ -1,6 +1,7 @@
 import './player/player.controller';
 import './team/team.controller';
 import './weapon/weapon.controller';
+import './airdrop/airdrop.controller';
 
 import { ConfigProps } from '../shared/types/resource';
 

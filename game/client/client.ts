@@ -1,4 +1,5 @@
 import './zone';
+import './airdrop';
 import { ConfigProps } from '../shared/types/resource';
 
 export const config: ConfigProps = JSON.parse(
