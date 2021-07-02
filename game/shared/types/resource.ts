@@ -5,6 +5,7 @@ export interface ConfigProps {
 
 export interface MapProps {
   name: string;
+  objectives: ObjectivesProps[]
   blue: MapTeamProps;
   red: MapTeamProps;
 }
@@ -22,4 +23,9 @@ export interface LoadoutProps {
     primary: string;
     secondary: string;
   }
+}
+
+export interface ObjectivesProps {
+  name: string;
+  coords: number[]
 }

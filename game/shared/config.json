@@ -4,9 +4,12 @@
       "name": "Silk Road",
       "objectives": [
         {
-          "name": "Alpha",
-          "coord": {
-          }
+          "name": "Delta",
+          "coords": [
+            2473.01,
+            3769.50,
+            41.32
+          ]
         }
       ],
       "blue": {

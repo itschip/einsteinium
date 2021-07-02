@@ -1,8 +1,9 @@
 import FiveM from "../lib/fivem";
+import {KillEvents} from "../../shared/events";
 
 let killCamTick: any;
 
-onNet('battlefield:kill:createKillCam', async (killerId: number, weaponName: string) => {
+onNet(KillEvents.CREATE_KILLCAM, async (killerId: number, weaponName: string) => {
 	const killCam = createKillCam(GetPlayerPed(GetPlayerFromServerId(killerId)));
 	RenderScriptCams(true, false, 0, true, true);
 

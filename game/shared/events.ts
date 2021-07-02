@@ -12,15 +12,25 @@ export enum CoreEvents {
   /**
    * The default cfx playerConnecting event
    */
-  PLAYER_CONNECTING = 'playerConnecting'
+  PLAYER_CONNECTING = 'playerConnecting',
+
+  /**
+   * The default cfx onPlayerDied event
+   */
+  ON_PLAYER_DIED = 'baseevents:onPlayerDied',
+
+  /**
+   * The default cfx onPlayerKilled event
+   */
+  ON_PLAYER_KILLED = 'baseevents:onPlayerKilled'
 }
 
 export enum SpawnEvents {
-  SPAWN_PLAYER = 'battlefield:spawnPlayer',
-  GET_LOADOUT = 'battlefield:getPlayerLoadout'
+  PLAYER_KILLED = 'battlefield:playerKilled',
+  PLAYER_DIED = 'battlefield:playerDied',
+  PLAYER_TO_BASE = 'battlefield:setPlayerToBase'
 }
 
-export enum GameEvents {
-  CREATE_ZONES = 'battlefield:createZones',
-  ASSIGN_PLAYER_TO_TEAM = 'battlefield:assignPlayerToTeam'
+export enum KillEvents {
+  CREATE_KILLCAM = 'battlefield:kill:createKillCam'
 }

@@ -1,7 +1,7 @@
 import { WeaponNames } from './../../shared/weapons';
 import { DeathDataProps } from './../../shared/types/kill';
 import RoundService from '../round/round.service';
-import { CoreEvents } from '../../shared/events';
+import {CoreEvents, KillEvents, SpawnEvents} from '../../shared/events';
 import PlayerService from './player.service';
 
 on(CoreEvents.PLAYER_JOINING, () => {
@@ -28,30 +28,30 @@ on(CoreEvents.PLAYER_DROPPED, (reason: string) => {
   PlayerService.handleRemovePlayer(_source);
 });
 
-onNet('battlefield:playerDied', (killerId: number) => {
+onNet(SpawnEvents.PLAYER_DIED, (killerId: number) => {
   const _source = global.source;
   const player = PlayerService.getPlayer(_source);
 
   emitNet(
-    'battlefield:setPlayerToBase',
+    SpawnEvents.PLAYER_TO_BASE,
     _source,
     RoundService.getMap()[player.getTeam()].playerSpawn,
     player.getTeam(),
   );
 });
 
-onNet('battlefield:playerKilled', (killerId: number, deathData: DeathDataProps) => {
+onNet(SpawnEvents.PLAYER_KILLED, (killerId: number, deathData: DeathDataProps) => {
   const _source = global.source;
   const player = PlayerService.getPlayer(_source);
 
   const weaponName: string = WeaponNames[deathData.weaponhash];
 
-  emitNet('battlefield:kill:createKillCam', _source, killerId, weaponName)
+  emitNet(KillEvents.CREATE_KILLCAM, _source, killerId, weaponName)
 
 
   setTimeout(() => {
     emitNet(
-      'battlefield:setPlayerToBase',
+      SpawnEvents.PLAYER_TO_BASE,
       _source,
       RoundService.getMap()[player.getTeam()].playerSpawn,
       player.getTeam(),

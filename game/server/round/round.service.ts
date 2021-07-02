@@ -1,12 +1,13 @@
-import { MapProps } from '../../shared/types/resource';
+import {MapProps, ObjectivesProps} from '../../shared/types/resource';
 import { config } from '../server';
+import World from "../lib/world";
 
 class _RoundService {
   private _map: MapProps;
 
   constructor() {
     console.log('Round service started');
-    this.init();
+    this.init()
 
     console.log(this._map);
   }
@@ -24,8 +25,6 @@ class _RoundService {
       console.log('failed to get config maps');
     }
   }
-
-  createObjectives() {}
 
   getMap(): MapProps {
     return this._map;

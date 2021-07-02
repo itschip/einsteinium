@@ -1,21 +1,22 @@
 import { DeathDataProps } from '../../shared/types/kill';
+import {CoreEvents, SpawnEvents} from "../../shared/events";
 
 RegisterCommand('respawn', () => {
-  emitNet('battlefield:playerDied');
+  emitNet(SpawnEvents.PLAYER_DIED);
 }, false)
 
-on('baseevents:onPlayerDied', (killerId: number, deathCoords: any[]) => {
+on(CoreEvents.ON_PLAYER_DIED, (killerId: number, deathCoords: any[]) => {
   console.log('player died');
   emitNet('battlefield:playerDied', killerId);
 });
 
-on('baseevents:onPlayerKilled', (killerId: number, deathData: DeathDataProps) => {
+on(CoreEvents.ON_PLAYER_KILLED, (killerId: number, deathData: DeathDataProps) => {
   console.log('player died');
-  emitNet('battlefield:playerKilled', killerId, deathData);
+  emitNet(SpawnEvents.PLAYER_KILLED, killerId, deathData);
 });
 
 onNet(
-  'battlefield:setPlayerToBase',
+  SpawnEvents.PLAYER_TO_BASE,
   (playerSpawn: { x: number; y: number; z: number }, team: string) => {
     console.log(team);
     console.log('player got yeeted to base');
