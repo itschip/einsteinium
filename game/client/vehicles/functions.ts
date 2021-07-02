@@ -1,4 +1,9 @@
-export function shootFlare(entity: number, entityCoords: number[], offset: number[], speed: number) {
+export function shootFlare(
+  entity: number,
+  entityCoords: number[],
+  offset: number[],
+  speed: number,
+) {
   ShootSingleBulletBetweenCoordsIgnoreEntity(
     entityCoords[0],
     entityCoords[1],
@@ -11,7 +16,7 @@ export function shootFlare(entity: number, entityCoords: number[], offset: numbe
     GetHashKey('weapon_flaregun'),
     PlayerPedId(),
     true,
-    false,
+    true,
     speed,
     entity,
   );

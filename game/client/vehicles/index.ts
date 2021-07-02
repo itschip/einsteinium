@@ -1,6 +1,8 @@
 import FiveM from '../lib/fivem';
 import { shootFlare } from './functions';
 
+let flaresEmpty = false;
+
 RegisterKeyMapping('+countermeasures', 'Deploys countermeasures', 'keyboard', 'x');
 RegisterCommand(
   '+countermeasures',
@@ -9,16 +11,22 @@ RegisterCommand(
     let counterMeasures = 0;
 
     const playerJet = GetVehiclePedIsIn(PlayerPedId(), false);
-    emitNet('battlefield:vehicle:updateCountermeasures', VehToNet(playerJet));
 
+    const SOUND_FLARES_RELEASED = 'flares_released';
+    const SOUND_FLARES_EMPTY = 'flares_empty';
+    const SOUND_FLARES_DICT = 'DLC_SM_Countermeasures_Sounds';
 
-    const DICT = 'scr_indep_fireworks';
-    const PARTICLE_NAME = 'scr_indep_firework_shotburst';
+    RequestModel(GetHashKey('weapon_flaregun'));
+    RequestWeaponAsset(GetHashKey('weapon_flaregun'), 31, 26);
+
+    RequestScriptAudioBank(SOUND_FLARES_DICT, false);
+
+    if (flaresEmpty) {
+      PlaySoundFromEntity(-1, SOUND_FLARES_EMPTY, playerJet, SOUND_FLARES_DICT, true, 0);
+      return;
+    }
 
     counterTick = setTick(async () => {
-      RequestModel(GetHashKey('weapon_flaregun'));
-      RequestWeaponAsset(GetHashKey('weapon_flaregun'), 31, 26);
-
       counterMeasures++;
       console.log('counters released', counterMeasures);
 
@@ -35,9 +43,7 @@ RegisterCommand(
         const flareOffsetRight2 = GetOffsetFromEntityInWorldCoords(playerJet, 2.0, -4.0, -0.3);
         const flareOffsetLeft2 = GetOffsetFromEntityInWorldCoords(playerJet, -2.0, -4.0, -0.3);
 
-        /*  SetVehicleCanBeLockedOn(playerJet, false, false); */
-        /* SetEntityInvincible(playerJet, true); */
-
+        PlaySoundFromEntity(-1, SOUND_FLARES_RELEASED, playerJet, SOUND_FLARES_DICT, true, 0);
         shootFlare(playerJet, rudder, flareOffsetRight, -8.0);
         shootFlare(playerJet, rudder, flareOffsetLeft, -8.0);
         shootFlare(playerJet, rudder, flareOffsetRight2, -8.0);
@@ -60,7 +66,12 @@ RegisterCommand(
       SetModelAsNoLongerNeeded(GetHashKey('weapon_flaregun'));
 
       if (counterMeasures === 6) {
+        flaresEmpty = true;
         clearTick(counterTick);
+        setTimeout(() => {
+          flaresEmpty = false;
+        }, 15000);
+
         SetVehicleCanBeLockedOn(playerJet, true, false);
       }
 
@@ -70,10 +81,10 @@ RegisterCommand(
   false,
 );
 
-onNet('battlefield:vehicle:explodeProjectile', async (weaponHash: number) => {
+/*onNet('battlefield:vehicle:explodeProjectile', async (weaponHash: number) => {
   console.log('projectile', weaponHash);
 
-  /*await FiveM.Delay(1000);*/
-  /*ExplodeProjectiles(PlayerPedId(), weaponHash, false);*/
-  /*RemoveAllProjectilesOfType(weaponHash, false);*/
-});
+  /!*await FiveM.Delay(1000);*!/
+  /!*ExplodeProjectiles(PlayerPedId(), weaponHash, false);*!/
+  /!*RemoveAllProjectilesOfType(weaponHash, false);*!/
+});*/
