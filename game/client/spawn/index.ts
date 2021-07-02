@@ -1,7 +1,7 @@
 import { DeathDataProps } from '../../shared/types/kill';
 
 setImmediate(() => {
-  /*emitNet('battlefield:playerDied');*/
+  emitNet('battlefield:playerDied');
 });
 
 on('baseevents:onPlayerDied', (killerId: number, deathCoords: any[]) => {

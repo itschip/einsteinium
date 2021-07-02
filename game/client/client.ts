@@ -11,3 +11,5 @@ import './zone';
 import './airdrop';
 import './spawn';
 import './vehicles';
+import './player';
+import './misc'
