@@ -10,6 +10,8 @@ RegisterCommand(
     let counterTick: any = null;
     let counterMeasures = 0;
 
+    const vehiclePedIsIn = GetVehicleClass(GetVehiclePedIsIn(PlayerPedId(), false))
+
     const playerJet = GetVehiclePedIsIn(PlayerPedId(), false);
 
     const SOUND_FLARES_RELEASED = 'flares_released';
@@ -26,13 +28,14 @@ RegisterCommand(
       return;
     }
 
+    // FIXME: This has to be optimized
     counterTick = setTick(async () => {
       counterMeasures++;
       console.log('counters released', counterMeasures);
 
       SetVehicleCanBeLockedOn(playerJet, false, false);
 
-      if (IsPedInAnyPlane(PlayerPedId())) {
+      if (vehiclePedIsIn === 16) {
         const rudder = GetWorldPositionOfEntityBone(
           playerJet,
           GetEntityBoneIndexByName(playerJet, 'rudder'),
@@ -48,7 +51,7 @@ RegisterCommand(
         shootFlare(playerJet, rudder, flareOffsetLeft, -8.0);
         shootFlare(playerJet, rudder, flareOffsetRight2, -8.0);
         shootFlare(playerJet, rudder, flareOffsetLeft2, -8.0);
-      } else if (IsPedInAnyHeli(PlayerPedId())) {
+      } else if (vehiclePedIsIn === 15) {
         // if in heli
         const rudder = GetEntityCoords(playerJet, false);
 

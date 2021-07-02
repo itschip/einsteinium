@@ -2,6 +2,13 @@
   "maps": [
     {
       "name": "Silk Road",
+      "objectives": [
+        {
+          "name": "Alpha",
+          "coord": {
+          }
+        }
+      ],
       "blue": {
         "playerSpawn": {
           "x": 2121.63,
@@ -17,5 +24,16 @@
         }
       }
     }
-  ]
+  ],
+  "loadouts": {
+    "medic": {
+      "primary": "WEAPON_CARBINERIFLE",
+      "secondary": "WEAPON_COMBATPISTOL"
+    },
+    "engineer": {
+      "primary": "WEAPON_SMG",
+      "secondary": "WEAPON_PISTOL",
+      "gadget": "WEAPON_HOMINGLAUNCHER"
+    }
+  }
 }

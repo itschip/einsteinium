@@ -1,5 +1,6 @@
 export interface ConfigProps {
   maps: MapProps[];
+  loadouts: LoadoutProps
 }
 
 export interface MapProps {
@@ -10,4 +11,15 @@ export interface MapProps {
 
 export interface MapTeamProps {
   playerSpawn: { x: number; y: number; z: number };
+}
+
+export interface LoadoutProps {
+  medic: {
+    primary: string;
+    secondary: string;
+  };
+  engineer: {
+    primary: string;
+    secondary: string;
+  }
 }

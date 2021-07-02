@@ -1,6 +1,7 @@
 import { ProjectileProps } from './../../shared/types/weapon';
 import WeaponService from './weapon.service';
 import FiveM from '../lib/fivem';
+import { config } from '../server';
 
 RegisterCommand(
   'giveweapon',
@@ -10,21 +11,19 @@ RegisterCommand(
   false,
 );
 
-on('startProjectileEvent', async (sender: number, data: ProjectileProps) => {
-  console.log('sender', sender);
-  console.log('data', data);
+RegisterCommand(
+  'class',
+  (src: number, args: any[], raw: string) => {
+    RemoveAllPedWeapons(GetPlayerPed(src.toString()), false);
 
-  console.log('entity owner', NetworkGetEntityFromNetworkId(data.ownerId));
+    const selectedClass: 'medic' | 'engineer' = args[0];
 
-  const playerUsedCountermeasures = Entity(NetworkGetEntityFromNetworkId(data.targetEntity)).state.usedCountermeasures
+    const loadout = config.loadouts[selectedClass];
 
- /* while (!playerUsedCountermeasures) {
-    await FiveM.Delay(10);
-  }*/
-
-  /*console.log('did player used countermeaures', playerUsedCountermeasures);*/
-  emitNet('battlefield:vehicle:explodeProjectile', sender, data.weaponHash);
-
-  /*if (playerUsedCountermeasures) {
-  }*/
-});
+    for (const [key, value] of Object.entries(loadout)) {
+      console.log(key, value);
+      WeaponService.giveWeapon(src, value)
+    }
+  },
+  false,
+);

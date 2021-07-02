@@ -1,8 +1,8 @@
 import { DeathDataProps } from '../../shared/types/kill';
 
-setImmediate(() => {
+RegisterCommand('respawn', () => {
   emitNet('battlefield:playerDied');
-});
+}, false)
 
 on('baseevents:onPlayerDied', (killerId: number, deathCoords: any[]) => {
   console.log('player died');
@@ -47,4 +47,4 @@ onNet(
   },
 );
 
-global.exports['spawnmanager'].setAutoSpawn(true);
+global.exports['spawnmanager'].setAutoSpawn(false);

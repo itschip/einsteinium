@@ -6,9 +6,13 @@ class _RoundService {
 
   constructor() {
     console.log('Round service started');
-    this.selectRandomMap();
+    this.init();
 
     console.log(this._map);
+  }
+
+  init() {
+    this.selectRandomMap();
   }
 
   selectRandomMap() {
@@ -20,6 +24,8 @@ class _RoundService {
       console.log('failed to get config maps');
     }
   }
+
+  createObjectives() {}
 
   getMap(): MapProps {
     return this._map;

@@ -22,11 +22,16 @@ CreateThread(function()
 	while true do
 		Wait(0)
 
-    local coords = GetEntityCoords(PlayerPedId());
-    
-    --[[ ClearAreaOfProjectiles(coords, 50.0, true) ]]
+		local plane = GetVehiclePedIsIn(PlayerPedId(), false)
+		if IsThisModelAPlane(GetEntityModel(plane)) then
+			SetPlaneTurbulenceMultiplier(plane, 0.0)
+		end
 
-    SetPlayerHomingRocketDisabled(PlayerId(), true)
+	    local coords = GetEntityCoords(PlayerPedId());
+
+	    --[[ ClearAreaOfProjectiles(coords, 50.0, true) ]]
+
+	    SetPlayerHomingRocketDisabled(PlayerId(), true)
 
 		RestorePlayerStamina(plyData.playerId, 1.0);
 		SetZoneEnabled(prLog, false) -- Removes Snowflakes from Cayo Perico
@@ -53,6 +58,16 @@ CreateThread(function()
 	end
 end)
 
+--[[CreateThread(function()
+	while true do
+		Wait(0)
+		if IsPedInAnyVehicle(PlayerPedId()) then
+			local veh = GetVehiclePedIsIn(PlayerPedId(), false)
+			SetEntityDrawOutline(veh, true)
+		end
+	end
+end)]]
+
 
 --[[const DICT = 'wpn_flare'
 const PARTICLE_NAME = 'proj_heist_flare_trail';]]
@@ -60,7 +75,7 @@ const PARTICLE_NAME = 'proj_heist_flare_trail';]]
 local dict = "scr_indep_fireworks"
 local particleName = "scr_indep_firework_shotburst"
 
-RegisterCommand('spark', function() 
+RegisterCommand('spark', function()
 -- Create a new thread.
   Citizen.CreateThread(function()
     -- Request the particle dictionary.

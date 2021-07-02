@@ -30,12 +30,6 @@ on(CoreEvents.PLAYER_DROPPED, (reason: string) => {
 
 onNet('battlefield:playerDied', (killerId: number) => {
   const _source = global.source;
-
-  console.log('server detected that you are dead');
-
-  console.log('source', _source);
-  console.log('killerId', killerId);
-
   const player = PlayerService.getPlayer(_source);
 
   emitNet(
@@ -48,26 +42,22 @@ onNet('battlefield:playerDied', (killerId: number) => {
 
 onNet('battlefield:playerKilled', (killerId: number, deathData: DeathDataProps) => {
   const _source = global.source;
-
-  console.log(deathData);
-
-  const killerWeaponHash = deathData.weaponhash;
-
-  console.log('killerWeaponHash', killerWeaponHash);
+  const player = PlayerService.getPlayer(_source);
 
   const weaponName: string = WeaponNames[deathData.weaponhash];
 
-  console.log('killer id', killerId);
-  console.log('killer weapon name', weaponName);
+  emitNet('battlefield:kill:createKillCam', _source, killerId, weaponName)
 
-  const player = PlayerService.getPlayer(_source);
 
-  emitNet(
-    'battlefield:setPlayerToBase',
-    _source,
-    RoundService.getMap()[player.getTeam()].playerSpawn,
-    player.getTeam(),
-  );
+  setTimeout(() => {
+    emitNet(
+      'battlefield:setPlayerToBase',
+      _source,
+      RoundService.getMap()[player.getTeam()].playerSpawn,
+      player.getTeam(),
+    );
+  }, 0)
+
 });
 
 // exports
