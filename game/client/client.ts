@@ -10,3 +10,4 @@ NetworkSetFriendlyFireOption(true);
 import './zone';
 import './airdrop';
 import './spawn';
+import './vehicles';

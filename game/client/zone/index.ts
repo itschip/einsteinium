@@ -13,21 +13,9 @@ RegisterCommand('carxd', async (src: number, args: string[]) => {
   console.log('xdxdxxdxdxddxd')
   const [x, y, z] = GetEntityCoords(PlayerPedId(), false);
   console.log(x, y, z)
-  const objectHash = GetHashKey('sh_conquest_flag_blue');
 
-  await World.createVehicle(args[0], [x,y, z]);
+  await World.createVehicle(args[0], [x,y, z], true);
 
-  /*RequestModel(objectHash);
-
-  while (!HasModelLoaded(objectHash)) {
-    await FiveM.Delay(100)
-    console.log('waiting sxx')
-  }
-
-  CreateObject(objectHash, x, y, z, true, true, false);*/
-
-  /*const flag = await World.createObject('sh_conquest_flag_white', [x, y, z]);*/
-  /*console.log(flag);*/
 }, false)
 
 RegisterCommand('flagprop', async (src: number, args: string[]) => {

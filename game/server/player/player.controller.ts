@@ -1,3 +1,5 @@
+import { WeaponNames } from './../../shared/weapons';
+import { DeathDataProps } from './../../shared/types/kill';
 import RoundService from '../round/round.service';
 import { CoreEvents } from '../../shared/events';
 import PlayerService from './player.service';
@@ -26,10 +28,13 @@ on(CoreEvents.PLAYER_DROPPED, (reason: string) => {
   PlayerService.handleRemovePlayer(_source);
 });
 
-onNet('battlefield:respawnPlayer', () => {
+onNet('battlefield:playerDied', (killerId: number) => {
   const _source = global.source;
 
   console.log('server detected that you are dead');
+
+  console.log('source', _source);
+  console.log('killerId', killerId);
 
   const player = PlayerService.getPlayer(_source);
 
@@ -37,6 +42,31 @@ onNet('battlefield:respawnPlayer', () => {
     'battlefield:setPlayerToBase',
     _source,
     RoundService.getMap()[player.getTeam()].playerSpawn,
+    player.getTeam(),
+  );
+});
+
+onNet('battlefield:playerKilled', (killerId: number, deathData: DeathDataProps) => {
+  const _source = global.source;
+
+  console.log(deathData);
+
+  const killerWeaponHash = deathData.weaponhash;
+
+  console.log('killerWeaponHash', killerWeaponHash);
+
+  const weaponName: string = WeaponNames[deathData.weaponhash];
+
+  console.log('killer id', killerId);
+  console.log('killer weapon name', weaponName);
+
+  const player = PlayerService.getPlayer(_source);
+
+  emitNet(
+    'battlefield:setPlayerToBase',
+    _source,
+    RoundService.getMap()[player.getTeam()].playerSpawn,
+    player.getTeam(),
   );
 });
 

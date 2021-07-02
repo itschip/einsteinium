@@ -8,6 +8,7 @@ import './team/team.controller';
 import './weapon/weapon.controller';
 import './airdrop/airdrop.controller';
 import './round/round.controller';
+import './vehicle/vehicle.controller';
 
 RegisterCommand(
   'getcoords',

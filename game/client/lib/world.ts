@@ -16,7 +16,7 @@ class _World {
 		return CreateObject(objectHash, coords[0], coords[1], coords[2], true, true, false);
 	}
 
-	async createVehicle(vehicle: string, coords: number[]) {
+	async createVehicle(vehicle: string, coords: number[], spawnInVehicle = false): Promise<number> {
 		const objectHash = GetHashKey(vehicle);
 		RequestModel(objectHash);
 
@@ -24,7 +24,13 @@ class _World {
 			await FiveM.Delay(100)
 		}
 
-		return CreateVehicle(objectHash, coords[0], coords[1], coords[2], 100, true, false);
+		const veh = CreateVehicle(objectHash, coords[0], coords[1], coords[2], 100, true, false);
+
+		if (spawnInVehicle) {
+			TaskWarpPedIntoVehicle(PlayerPedId(), veh, -1);
+		}
+
+		return veh;
 	}
 
 }

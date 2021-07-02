@@ -1,0 +1,31 @@
+export interface ProjectileProps {
+  ownerId: number;
+  projectileHash: number;
+  weaponHash: number;
+  initialPositionX: number;
+  initialPositionY: number;
+  initialPositionZ: number;
+  targetEntity: number;
+  firePositionX: number;
+  firePositionY: number;
+  firePositionZ: number;
+  effectGroup: number;
+  unk3: number;
+  commandFireSingleBullet: boolean;
+  unk4: boolean;
+  unk5: boolean;
+  unk6: boolean;
+  unk7: number;
+  unkX8: number;
+  unkY8: number;
+  unkZ8: number;
+  unk9: boolean;
+  unk10: boolean;
+  unk11: number;
+  throwTaskSequence: number;
+  unk12: boolean;
+  unk13: number;
+  unk14: number;
+  unk15: boolean;
+  unk16: number;
+}

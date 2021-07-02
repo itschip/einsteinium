@@ -1,37 +1,50 @@
-setImmediate(() => {
-  console.log('do you even work?');
-});
+import { DeathDataProps } from '../../shared/types/kill';
 
-global.exports['spawnmanager'].spawnPlayer({
-  x: -1162.49,
-  y: -2977.33,
-  z: 13.94,
-  heading: 200.0,
-  skidFade: true,
+setImmediate(() => {
+  /*emitNet('battlefield:playerDied');*/
 });
 
 on('baseevents:onPlayerDied', (killerId: number, deathCoords: any[]) => {
   console.log('player died');
-  emitNet('battlefield:respawnPlayer');
+  emitNet('battlefield:playerDied', killerId);
 });
 
-on('baseevents:onPlayerKilled', (killerId: number, deathCoords: any[]) => {
+on('baseevents:onPlayerKilled', (killerId: number, deathData: DeathDataProps) => {
   console.log('player died');
-  emitNet('battlefield:respawnPlayer');
+  emitNet('battlefield:playerKilled', killerId, deathData);
 });
 
-onNet('battlefield:setPlayerToBase', (playerSpawn: { x: number; y: number; z: number }) => {
-  console.log('player got yeeted to base');
+onNet(
+  'battlefield:setPlayerToBase',
+  (playerSpawn: { x: number; y: number; z: number }, team: string) => {
+    console.log(team);
+    console.log('player got yeeted to base');
 
-  global.exports['spawnmanager'].setAutoSpawnCallback(() => {
     global.exports['spawnmanager'].spawnPlayer({
       x: playerSpawn.x,
       y: playerSpawn.y,
       z: playerSpawn.z,
+      model: team === 'red' ? 's_m_m_marine_01' : 'mp_m_bogdangoon',
       heading: 260.0,
       skipFade: false,
     });
-  });
-});
+
+    global.exports['spawnmanager'].setAutoSpawnCallback(() => {
+      global.exports['spawnmanager'].spawnPlayer(
+        {
+          x: playerSpawn.x,
+          y: playerSpawn.y,
+          z: playerSpawn.z,
+          heading: 260.0,
+          model: team === 'red' ? 's_m_m_marine_01' : 'mp_m_bogdangoon',
+          skipFade: false,
+        },
+        () => {
+          ClearPedBloodDamage(PlayerPedId());
+        },
+      );
+    });
+  },
+);
 
 global.exports['spawnmanager'].setAutoSpawn(true);
