@@ -7,6 +7,7 @@ export class Player {
   private readonly _username: string;
   private _kills: number;
   private _deaths: number;
+  private _selectedClass: string;
   _team: 'red' | 'blue' | null;
   private readonly playerDB: _PlayerDB;
 
@@ -17,6 +18,7 @@ export class Player {
     this._kills = kills;
     this._deaths = deaths;
     this._team = team;
+    this._selectedClass = null;
 
     this.playerDB = PlayerDB;
   }
@@ -51,5 +53,13 @@ export class Player {
 
   setTeam(team: 'red' | 'blue') {
     this._team = team;
+  }
+
+  getClass(): string | null{
+    return this._selectedClass;
+  }
+
+  setClass(_class: string): void {
+    this._selectedClass = _class;
   }
 }

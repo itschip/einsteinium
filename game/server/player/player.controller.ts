@@ -1,7 +1,7 @@
 import { WeaponNames } from './../../shared/weapons';
 import { DeathDataProps } from './../../shared/types/kill';
 import RoundService from '../round/round.service';
-import {CoreEvents, KillEvents, SpawnEvents} from '../../shared/events';
+import { CoreEvents, KillEvents, SpawnEvents } from '../../shared/events';
 import PlayerService from './player.service';
 
 on(CoreEvents.PLAYER_JOINING, () => {
@@ -41,23 +41,31 @@ onNet(SpawnEvents.PLAYER_DIED, (killerId: number) => {
 });
 
 onNet(SpawnEvents.PLAYER_KILLED, (killerId: number, deathData: DeathDataProps) => {
+  console.log('player killed');
+
   const _source = global.source;
   const player = PlayerService.getPlayer(_source);
 
   const weaponName: string = WeaponNames[deathData.weaponhash];
 
-  emitNet(KillEvents.CREATE_KILLCAM, _source, killerId, weaponName)
+  emitNet(KillEvents.CREATE_KILLCAM, _source, killerId, weaponName);
 
+  Entity(GetPlayerPed(_source.toString())).state.canBeRevived = true;
 
-  setTimeout(() => {
+  console.log('can be revived', Entity(GetPlayerPed(_source.toString())).state.canBeRevived);
+
+  // if not being revived
+  /*setTimeout(() => {
+    Entity(GetPlayerPed(_source.toString())).state.canBeRevived = false;
+
+    console.log('can be revived', Entity(GetPlayerPed(_source.toString())).state.canBeRevived)
     emitNet(
       SpawnEvents.PLAYER_TO_BASE,
       _source,
       RoundService.getMap()[player.getTeam()].playerSpawn,
       player.getTeam(),
     );
-  }, 0)
-
+  }, 5000)*/
 });
 
 // exports
